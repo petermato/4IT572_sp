@@ -14,7 +14,6 @@ exports.config = {
     // 'path/to/excluded/files'
   ],
   //
-  //
   // ============
   // Capabilities
   // ============
