@@ -3,6 +3,7 @@ name: Build and test our Eshop
 on:
   pull_request:
     types: [opened]
+    
 
 jobs:
   Install:
