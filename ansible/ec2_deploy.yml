@@ -71,18 +71,18 @@
         port:
           80
 
-    - name: Closing instances
-      hosts: localhost
-      connection: local
+- name: Closing instances
+  hosts: localhost
+  connection: local
 
-      tasks:
-        - name: Closing instances
-          amazon.aws.ec2:
-            region: us-east-1
-            state: 'absent'
-            instance_ids: '{{ item.instance_id }}'
-            aws_access_key: "{{access_key}}"
-            aws_secret_key: "{{secret_key}}"
-            security_token: "{{session_token}}"
-            wait: yes
-          with_items: "{{actual.instances}}"
+  tasks:
+    - name: Closing instances
+      amazon.aws.ec2:
+        region: us-east-1
+        state: 'absent'
+        instance_ids: '{{ item.instance_id }}'
+        aws_access_key: "{{access_key}}"
+        aws_secret_key: "{{secret_key}}"
+        security_token: "{{session_token}}"
+        wait: yes
+      with_items: "{{actual.instances}}"
