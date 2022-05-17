@@ -2,7 +2,10 @@ name: Build and test our Eshop
 
 on:
   workflow_dispatch:
-  push:   
+  push:
+    branches:
+      - master
+  pull_request: 
 
 jobs:
   Install:
@@ -95,6 +98,9 @@ jobs:
       needs: [Build, Test]
       runs-on: ubuntu-latest
       if: ${{ github.ref == 'refs/heads/main'}}
+      env:
+       VAULT_PASS: ${{ secrets.VAULT_PASS }}
+       RSA_PRIVATE_KEY: ${{ secrets.RSA_PRIVATE_KEY }}
 
       steps:
         - name: Git Checkout
@@ -105,3 +111,14 @@ jobs:
         - name: Install ansible and boto
           run: |
            pip install ansible==4 boto boto3
+
+        - name: Key preparation
+          run: |
+           echo "$VAULT_PASS" > vault_pass.txt
+           chmod 400 vault_pass.txt
+           echo "$RSA_PRIVATE_KEY" > devops.pem
+           chmod 400 devops.pem
+           sudo ssh-keygen -p -f devops.pem -m pem
+
+        - name: Start of Ansible Playbook
+          run: ansible-playbosok ansible/ec2_deploy.yml --ssh-common-args='-o StrictHostKeyChecking=no' --user ec2-user --key-file devops.pem --e @ansible/group_vars/all/aws.yml --vault-password-file vault_pass.txt
