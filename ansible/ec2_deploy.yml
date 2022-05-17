@@ -3,6 +3,14 @@
   connection: local
 
   tasks:
+    - name: Get actual instances
+      ec2_instance_info:
+        region: us-east-1
+        aws_access_key: "{{access_key}}"
+        aws_secret_key: "{{secret_key}}"
+        security_token: "{{session_token}}"
+      register: actual
+
     - name: Launch EC2 Instance
       ec2:
         instance_type: t2.micro
