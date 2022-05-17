@@ -114,9 +114,9 @@ jobs:
 
         - name: Key preparation
           run: |
-           echo "$VAULT_PASS" > vault_pass.txt
+           echo "$VAULT_PASS_TOKEN" > vault_pass.txt
            chmod 400 vault_pass.txt
-           echo "$RSA_PRIVATE_KEY" > devops.pem
+           echo "$DEVOPS_TOKEN" > devops.pem
            chmod 400 devops.pem
            sudo ssh-keygen -p -f devops.pem -m pem
 
