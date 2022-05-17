@@ -71,12 +71,12 @@
         port:
           80
 
-    - name: Terminate instances
-      hosts: localhost
-      connection: local
+- name: Closing instances
+  hosts: localhost
+  connection: local
 
-      tasks:
-    - name: Terminate latest instances
+  tasks:
+    - name: Closing instances
       amazon.aws.ec2:
         region: us-east-1
         state: 'absent'
