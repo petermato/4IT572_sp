@@ -121,4 +121,4 @@ jobs:
            sudo ssh-keygen -p -f devops.pem -m pem
 
         - name: Start of Ansible Playbook
-          run: ansible-playbosok ansible/ec2_deploy.yml --ssh-common-args='-o StrictHostKeyChecking=no' --user ec2-user --key-file devops.pem --e @ansible/group_vars/all/aws.yml --vault-password-file vault_pass.txt
+          run: ansible-playbook ansible/ec2_deploy.yml --ssh-common-args='-o StrictHostKeyChecking=no' --user ec2-user --key-file devops.pem --e @ansible/group_vars/all/aws.yml --vault-password-file vault_pass.txt
